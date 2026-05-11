@@ -34,7 +34,6 @@ const recorded = recordedTests({
   // Two identical requests in one cassette — match by recording order so the
   // second call replays the cached-hit interaction.
   options: {
-    dispatch: "sequential",
     redactor: Redactor.defaults({ requestHeaders: { allow: ["content-type", "anthropic-version"] } }),
   },
 })

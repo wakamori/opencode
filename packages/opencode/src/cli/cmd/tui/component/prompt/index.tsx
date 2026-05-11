@@ -1351,7 +1351,9 @@ export function Prompt(props: PromptProps) {
   }
 
   function clearPrompt() {
-    if (store.prompt.input.trim().length >= DRAFT_RETENTION_MIN_CHARS || store.prompt.parts.length > 0) {
+    const shouldRetainDraft = store.prompt.input.trim().length >= DRAFT_RETENTION_MIN_CHARS || store.prompt.parts.length > 0
+    const shouldSaveClearedPrompt = kv.get("clear_prompt_save_history", false) && store.prompt.input !== ""
+    if (shouldRetainDraft || shouldSaveClearedPrompt) {
       history.append({
         ...store.prompt,
         mode: store.mode,
